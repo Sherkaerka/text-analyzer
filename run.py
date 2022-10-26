@@ -1,3 +1,25 @@
+import gspread
+from google.oauth2.service_account import Credentials
+
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
+
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('text_analyzer')
+
+
+# try connection to sheet
+sheet1 = SHEET.worksheet('sheet1')
+
+data = sheet1.get_all_values()
+
+print(data)
+
 def print_menu():
     """
     Prints the menu so that the user can choose what they want to do. 
