@@ -22,31 +22,34 @@ def print_menu():
                 print('Invalid input. Please enter a number.')
             
             if option == 1:
-                option1()
+                analyze_website()
                 exit()
             elif option == 2:
-                option2()
+                analyze_text_input()
                 exit()
             elif option == 3:
-                print('Thank you for using Text Analyzer')
+                print('Thank you for using Text Analyzer. Shutting down...')
                 exit()
             else:
                 print('Invalid option. Please enter a number between 1 and 3.')
 
 
-def option1():
+def analyze_website():
+    """
+    Gives the user an input to enter a website URL that will be analyzed.
+    """
     print('Let us look at the page')
 
 
-def option2():
+def analyze_text_input():
+    """
+    Gives the user an input field to paste a chunk of text to be analyzed.
+    """
     print('Paste your input')
+  
 
-
-def main():
-    """
-    Run all programs
-    """
-    print_menu()
-
+"""
+Run program
+"""
 print("Welcome to Text Analyzer")
-main()
+print_menu()
