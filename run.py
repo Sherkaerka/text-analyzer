@@ -20,6 +20,7 @@ data = sheet1.get_all_values()
 
 print(data)
 
+
 def print_menu():
     """
     Prints the menu so that the user can choose what they want to do. 
@@ -61,7 +62,11 @@ def analyze_website():
     Gives the user an input to enter a website URL that will be analyzed.
     """
     print('Let us look at the page')
-
+    
+    first = input('Enter First Name: ')
+    sheet1 = SHEET.worksheet('sheet1')
+    sheet1.append_row([first])
+    print( "Added successfully!")
 
 def analyze_text_input():
     """
