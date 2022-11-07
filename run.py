@@ -14,11 +14,7 @@ SHEET = GSPREAD_CLIENT.open('text_analyzer')
 
 
 # try connection to sheet
-sheet1 = SHEET.worksheet('sheet1')
 
-data = sheet1.get_all_values()
-
-print(data)
 
 
 def print_menu():
@@ -26,9 +22,10 @@ def print_menu():
     Prints the menu so that the user can choose what they want to do. 
     """
     menu_options = {
-        1: 'Analyze website',
-        2: 'Analyze text input',
-        3: 'Exit',
+        1: 'Add contact',
+        2: 'Print all contacts',
+        3: 'Search contact',
+        4: 'Exit',
     }
 
     def print_menu_options():
@@ -45,35 +42,48 @@ def print_menu():
                 print('Invalid input. Please enter a number.')
             
             if option == 1:
-                analyze_website()
+                add_contact()
                 exit()
             elif option == 2:
-                analyze_text_input()
+                print_all_contacts()
                 exit()
             elif option == 3:
+                search_contact()
+                exit()
+            elif option == 4:
                 print('Thank you for using Text Analyzer. Shutting down...')
                 exit()
             else:
-                print('Invalid option. Please enter a number between 1 and 3.')
+                print('Invalid option. Please enter a number between 1 and 4.')
 
 
-def analyze_website():
+def add_contact():
     """
     Gives the user an input to enter a website URL that will be analyzed.
     """
-    print('Let us look at the page')
+    print('Add new customer record')
     
     first = input('Enter First Name: ')
+    company = input('Enter Company Name: ')
     sheet1 = SHEET.worksheet('sheet1')
-    sheet1.append_row([first])
+    sheet1.append_row([first, company])
     print( "Added successfully!")
 
-def analyze_text_input():
+
+def print_all_contacts():
     """
     Gives the user an input field to paste a chunk of text to be analyzed.
     """
-    print('Paste your input')
+    sheet1 = SHEET.worksheet('sheet1')
+    data = sheet1.get_all_values()
+    print(data)
   
+
+def search_contact():
+    """
+    Let user search
+    """
+    print('let us look what we got')
 
 """
 Run program
