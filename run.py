@@ -68,7 +68,6 @@ def add_contact():
     sheet1.append_row([company, name, email, phone])
     print( "New Customer record added successfully!")
 
-
 def print_all_contacts():
     """
     Prints all contacts in the CRM to the terminal.
@@ -82,7 +81,17 @@ def search_contact():
     """
     Let user search within the customer database
     """
-    print('let us look what we got')
+    search_for = input('What or whom are you looking for: \n')
+
+    sheet1 = SHEET.worksheet('sheet1')
+    data = sheet1.get_all_values()
+    
+    for list in data:
+        if search_for in list:
+            print(list)
+        else:
+            print('no record found')
+
 
 """
 Run program
