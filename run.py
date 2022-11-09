@@ -15,7 +15,8 @@ SHEET = GSPREAD_CLIENT.open('text_analyzer')
 
 def print_menu():
     """
-    Prints the menu so that the user can choose what they want to do. 
+    Prints the menu so that the user can choose what 
+    they want to do. 
     """
     menu_options = {
         1: 'Add contact',
@@ -70,16 +71,20 @@ def add_contact():
 
 def print_all_contacts():
     """
-    Prints all contacts in the CRM to the terminal.
+    Enumerates and print all contacts in the CRM to 
+    the terminal.
     """
     sheet1 = SHEET.worksheet('sheet1')
     data = sheet1.get_all_values()
-    print(data)
+    
+    for i in enumerate(data):
+        print(i)
   
 
 def search_contact():
     """
-    Let user search within the customer database and returns
+    Let user search within the customer database and 
+    returns the row or rows with a match. 
     """
     search_for = input('What or whom are you looking for: \n')
 
@@ -89,14 +94,21 @@ def search_contact():
     for list in data:
         if search_for in list:
             print(list)
-            print_menu()
-        else:
-            print('No record found')
-            print_menu()
+    
+    search_result = input('Do you wanna search again? y/n')
+
+    if search_result == 'y':
+        search_contact()
+    else:
+        print_menu()
+            
 
 def remove_contact():
     """
-    Prints all contacts in the CRM to the terminal.
+    Enumerates and print all contacts in the CRM to the 
+    terminal. Then user enter wich number to remove and 
+    due to indexing the function add +1 to delete correct 
+    row in the worksheet.
     """
     sheet1 = SHEET.worksheet('sheet1')
     data = sheet1.get_all_values()
@@ -107,7 +119,7 @@ def remove_contact():
     edit_list = input('Enter index on record you want to delete: \n')
     actual_row = int(edit_list) + 1
     sheet1.delete_rows(actual_row)
-
+    print("Contact removed successfully")
 
 """
 Run program
