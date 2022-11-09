@@ -21,7 +21,8 @@ def print_menu():
         1: 'Add contact',
         2: 'Print all contacts',
         3: 'Search contact',
-        4: 'Exit',
+        4: 'Remove contact',
+        5: 'Exit',
     }
 
     def print_menu_options():
@@ -40,14 +41,13 @@ def print_menu():
             
             if option == 1:
                 add_contact()
-                exit()
             elif option == 2:
                 print_all_contacts()
-                exit()
             elif option == 3:
                 search_contact()
-                exit()
             elif option == 4:
+                remove_contact()
+            elif option == 5:
                 print('Thank you for using Text Analyzer CRM. Shutting down...')
                 exit()
             else:
@@ -79,7 +79,7 @@ def print_all_contacts():
 
 def search_contact():
     """
-    Let user search within the customer database
+    Let user search within the customer database and returns
     """
     search_for = input('What or whom are you looking for: \n')
 
@@ -89,8 +89,24 @@ def search_contact():
     for list in data:
         if search_for in list:
             print(list)
+            print_menu()
         else:
-            print('no record found')
+            print('No record found')
+            print_menu()
+
+def remove_contact():
+    """
+    Prints all contacts in the CRM to the terminal.
+    """
+    sheet1 = SHEET.worksheet('sheet1')
+    data = sheet1.get_all_values()
+    
+    for i in enumerate(data):
+        print(i)
+        
+    edit_list = input('Enter index on record you want to delete: \n')
+    actual_row = int(edit_list) + 1
+    sheet1.delete_rows(actual_row)
 
 
 """
