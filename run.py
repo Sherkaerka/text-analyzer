@@ -48,12 +48,14 @@ def print_menu():
             elif option == 3:
                 search_contact()
             elif option == 4:
-                remove_contact()
+                edit_contact()
             elif option == 5:
+                remove_contact()
+            elif option == 6:
                 print('Thank you for using Text Analyzer CRM. Shutting down...')
                 exit()
             else:
-                print('Invalid option. Please enter a number between 1 and 5.')
+                print('Invalid option. Please enter a number between 1 and 6.')
 
 
 def add_contact():
@@ -103,6 +105,42 @@ def search_contact():
     else:
         print_menu()
             
+def edit_contact():
+    """
+    Use search function based on Company name. Retrieves row number 
+    and ask for wich index user wish to edit.
+    """
+    search_for = input('Search for Company name: \n')
+
+    sheet1 = SHEET.worksheet('sheet1')
+    data = sheet1.get_all_values()
+
+    for list in data:
+        if search_for in list:
+            company_col = sheet1.col_values(1)
+            rownum = company_col.index(search_for) + 1
+            row = sheet1.row_values(rownum)
+            print(rownum, row)
+
+        
+    edit_list = input('Enter index on record you want to edit: \n')
+    actual_row = int(edit_list)
+
+    print('Update customer record')
+    
+    company = input('Enter Company Name: ')
+    fname = input('Enter First name of contact: ')
+    lname = input('Enter Last name of contact: ')
+    email = input('Enter e-mail: ')
+    phone = input('Enter phone number: ')
+      
+    if actual_row == rownum:
+        sheet1.delete_rows(actual_row)
+        sheet1 = SHEET.worksheet('sheet1')
+        sheet1.append_row([company, fname, lname, email, phone])
+        print("Contact updated successfully")
+    else:
+        print('You are trying to edit another record')
 
 def remove_contact():
     """
@@ -122,12 +160,14 @@ def remove_contact():
             print(rownum, row)
 
         
-    edit_list = input('Enter index on record you want to delete: \n')
-    actual_row = int(edit_list)
+    delete_list = input('Enter index on record you want to delete or 9 to go back to Main menu: \n')
+    actual_row = int(delete_list)
 
     if actual_row == rownum:
         sheet1.delete_rows(actual_row)
         print("Contact removed successfully")
+    elif actual_row == 9:
+        print_menu()
     else:
         print('You are trying to remove another record')
 
