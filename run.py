@@ -63,11 +63,12 @@ def add_contact():
     print('Add new customer record')
     
     company = input('Enter Company Name: ')
-    name = input('Enter Full name of contact: ')
+    fname = input('Enter First name of contact: ')
+    lname = input('Enter Last name of contact: ')
     email = input('Enter e-mail: ')
     phone = input('Enter phone number: ')
     sheet1 = SHEET.worksheet('sheet1')
-    sheet1.append_row([company, name, email, phone])
+    sheet1.append_row([company, fname, lname, email, phone])
     print( "New Customer record added successfully!")
 
 def print_all_contacts():
@@ -93,7 +94,7 @@ def search_contact():
     
     for list in data:
         if search_for in list:
-            print(tabulate([list], headers= ["Company","Contact name", "Email", "Phone"]))
+            print(tabulate([list], headers= ["Company","First name","Last name", "Email", "Phone"]))
     
     search_result = input('Do you wanna search again? y/n: ')
 
@@ -105,10 +106,8 @@ def search_contact():
 
 def remove_contact():
     """
-    Enumerates and print all contacts in the CRM to the 
-    terminal. Then user enter wich number to remove and 
-    due to indexing the function add +1 to delete correct 
-    row in the worksheet.
+    Use search function based on Company name. Retrieves row number 
+    and ask for wich index user wish to delete.
     """
     search_for = input('Search for Company name: \n')
 
