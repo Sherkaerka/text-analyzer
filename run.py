@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
+from tabulate import tabulate
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -52,7 +53,7 @@ def print_menu():
                 print('Thank you for using Text Analyzer CRM. Shutting down...')
                 exit()
             else:
-                print('Invalid option. Please enter a number between 1 and 4.')
+                print('Invalid option. Please enter a number between 1 and 5.')
 
 
 def add_contact():
@@ -62,7 +63,7 @@ def add_contact():
     print('Add new customer record')
     
     company = input('Enter Company Name: ')
-    name = input('Enter Name of contact: ')
+    name = input('Enter Full name of contact: ')
     email = input('Enter e-mail: ')
     phone = input('Enter phone number: ')
     sheet1 = SHEET.worksheet('sheet1')
@@ -77,8 +78,7 @@ def print_all_contacts():
     sheet1 = SHEET.worksheet('sheet1')
     data = sheet1.get_all_values()
     
-    for i in enumerate(data):
-        print(i)
+    print(tabulate(data))
   
 
 def search_contact():
@@ -86,7 +86,7 @@ def search_contact():
     Let user search within the customer database and 
     returns the row or rows with a match. 
     """
-    search_for = input('What or whom are you looking for: \n')
+    search_for = input('Search for any input in the contacts: \n')
 
     sheet1 = SHEET.worksheet('sheet1')
     data = sheet1.get_all_values()
@@ -112,7 +112,7 @@ def remove_contact():
     """
     sheet1 = SHEET.worksheet('sheet1')
     data = sheet1.get_all_values()
-    
+
     for i in enumerate(data):
         print(i)
         
