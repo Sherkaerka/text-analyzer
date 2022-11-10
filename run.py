@@ -110,16 +110,27 @@ def remove_contact():
     due to indexing the function add +1 to delete correct 
     row in the worksheet.
     """
+    search_for = input('Search for Company name: \n')
+
     sheet1 = SHEET.worksheet('sheet1')
     data = sheet1.get_all_values()
 
-    for i in enumerate(data):
-        print(i)
+    for list in data:
+        if search_for in list:
+            company_col = sheet1.col_values(1)
+            rownum = company_col.index(search_for) + 1
+            row = sheet1.row_values(rownum)
+            print(rownum, row)
+
         
     edit_list = input('Enter index on record you want to delete: \n')
-    actual_row = int(edit_list) + 1
-    sheet1.delete_rows(actual_row)
-    print("Contact removed successfully")
+    actual_row = int(edit_list)
+
+    if actual_row == rownum:
+        sheet1.delete_rows(actual_row)
+        print("Contact removed successfully")
+    else:
+        print('You are trying to remove another record')
 
 """
 Run program
