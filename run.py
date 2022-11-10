@@ -72,7 +72,7 @@ def add_contact():
 
 def print_all_contacts():
     """
-    Enumerates and print all contacts in the CRM to 
+    Tabulates and print all contacts in the CRM to 
     the terminal.
     """
     sheet1 = SHEET.worksheet('sheet1')
@@ -93,9 +93,9 @@ def search_contact():
     
     for list in data:
         if search_for in list:
-            print(list)
+            print(tabulate([list], headers= ["Company","Contact name", "Email", "Phone"]))
     
-    search_result = input('Do you wanna search again? y/n')
+    search_result = input('Do you wanna search again? y/n: ')
 
     if search_result == 'y':
         search_contact()
