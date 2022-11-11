@@ -23,8 +23,9 @@ def print_menu():
         1: 'Add contact',
         2: 'Print all contacts',
         3: 'Search contact',
-        4: 'Remove contact',
-        5: 'Exit',
+        4: 'Edit contact',
+        5: 'Remove contact',
+        6: 'Exit',
     }
 
     def print_menu_options():
@@ -90,6 +91,9 @@ def search_contact():
     returns the row or rows with a match. 
     """
     search_for = input('Search for any input in the contacts: \n')
+    if search_for == "":
+        print('Please give input')
+        search_contact()
 
     sheet1 = SHEET.worksheet('sheet1')
     data = sheet1.get_all_values()
@@ -104,17 +108,24 @@ def search_contact():
         search_contact()
     else:
         print_menu()
-            
+
+
 def edit_contact():
     """
-    Use search function based on Company name. Retrieves row number 
-    and ask for wich index user wish to edit.
+    Use search function based on Company name. 
+    Retrieves row number and ask for wich index user wish to edit. 
+    Ask user wich data to be adjusted and the update specific cell.
     """
-    search_for = input('Search for Company name: \n')
+    
+    
+    search_for = str(input('Search for Company name: \n'))
+    if search_for == "":
+        print('Please give input')
+        edit_contact()
 
     sheet1 = SHEET.worksheet('sheet1')
     data = sheet1.get_all_values()
-
+    
     for list in data:
         if search_for in list:
             company_col = sheet1.col_values(1)
@@ -122,25 +133,89 @@ def edit_contact():
             row = sheet1.row_values(rownum)
             print(rownum, row)
 
-        
-    edit_list = input('Enter index on record you want to edit: \n')
-    actual_row = int(edit_list)
-
-    print('Update customer record')
     
-    company = input('Enter Company Name: ')
-    fname = input('Enter First name of contact: ')
-    lname = input('Enter Last name of contact: ')
-    email = input('Enter e-mail: ')
-    phone = input('Enter phone number: ')
-      
-    if actual_row == rownum:
-        sheet1.delete_rows(actual_row)
-        sheet1 = SHEET.worksheet('sheet1')
-        sheet1.append_row([company, fname, lname, email, phone])
-        print("Contact updated successfully")
+    edit_list = input('Enter index on record you want to edit or 9 to exit to main menu: \n')
+    
+    if edit_list == "":
+        print('Please give input')
+        edit_contact()
+    elif edit_list == 9:
+        print_menu()
     else:
+        int(edit_list)
+    
+
+    actual_row = edit_list
+    
+    if actual_row != rownum:
         print('You are trying to edit another record')
+        print_menu()
+
+    edit_menu = {
+        1: 'Company name',
+        2: 'First name',
+        3: 'Last name',
+        4: 'Email',
+        5: 'Phone',
+        6: 'Exit',
+    }
+        
+    def print_edit_menu():
+        for key in edit_menu.keys():
+            print (key, '--', edit_menu[key] )
+
+    if __name__=='__main__':
+        while(True):
+            print('---Edit menu---')
+            print_edit_menu()
+            option = ''
+            try:
+                option = int(input('What do you want to edit: '))
+            except:
+                print('Invalid input. Please enter a number.')
+            
+            if option == 1:
+                new_input = input('Please enter new input: ')
+                col = 'A'
+                cell = col + str(actual_row)
+                sheet1.update(cell, new_input)
+                print('Company record updated successfully')
+                print_menu()
+            elif option == 2:
+                new_input = input('Please enter new input: ')
+                col = 'B'
+                cell = col + str(actual_row)
+                sheet1.update(cell, new_input)
+                print('First name record updated successfully')
+                print_menu()
+            elif option == 3:
+                new_input = input('Please enter new input: ')
+                col = 'C'
+                cell = col + str(actual_row)
+                sheet1.update(cell, new_input)
+                print('Last name record updated successfully')
+                print_menu()
+            elif option == 4:
+                new_input = input('Please enter new input: ')
+                col = 'D'
+                cell = col + str(actual_row)
+                sheet1.update(cell, new_input)
+                print('Email record updated successfully')
+                print_menu()
+            elif option == 5:
+                new_input = input('Please enter new input: ')
+                col = 'E'
+                cell = col + str(actual_row)
+                sheet1.update(cell, new_input)
+                print('Phone record updated successfully')
+                print_menu()
+            elif option == 6:
+                print('Thank you for using Text Analyzer CRM. Shutting down...')
+                exit()
+            else:
+                print('Invalid option. Please enter a number between 1 and 6.')
+
+    
 
 def remove_contact():
     """
@@ -148,6 +223,10 @@ def remove_contact():
     and ask for wich index user wish to delete.
     """
     search_for = input('Search for Company name: \n')
+
+    if search_for == "":
+        print('Please give input')
+        remove_contact()
 
     sheet1 = SHEET.worksheet('sheet1')
     data = sheet1.get_all_values()
