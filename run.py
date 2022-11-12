@@ -1,4 +1,5 @@
 import gspread
+import re
 from google.oauth2.service_account import Credentials
 from tabulate import tabulate
 
@@ -19,6 +20,7 @@ def print_menu():
     Prints the menu so that the user can choose what 
     they want to do. 
     """
+    
     menu_options = {
         1: 'Add contact',
         2: 'Print all contacts',
@@ -101,13 +103,15 @@ def search_contact():
     for list in data:
         if search_for in list:
             print(tabulate([list], headers= ["Company","First name","Last name", "Email", "Phone"]))
-    
+
+
     search_result = input('Do you wanna search again? y/n: ')
 
     if search_result == 'y':
         search_contact()
     else:
         print_menu()
+
 
 
 def edit_contact():
@@ -125,31 +129,37 @@ def edit_contact():
 
     sheet1 = SHEET.worksheet('sheet1')
     data = sheet1.get_all_values()
-    
+
     for list in data:
         if search_for in list:
             company_col = sheet1.col_values(1)
             rownum = company_col.index(search_for) + 1
             row = sheet1.row_values(rownum)
-            print(rownum, row)
+            print(rownum, row) 
 
+    search_result = input('Do you wanna [s] search again or [c] continue or [x]exit? s/c/x: ')
+
+    if search_result == 's':
+        edit_contact()
+    elif search_result == 'x':
+        print_menu()
     
-    edit_list = input('Enter index on record you want to edit or 9 to exit to main menu: \n')
+
+    edit_list = input('Enter index on record you want to edit or [x] to exit to main menu: \n')
     
     if edit_list == "":
         print('Please give input')
         edit_contact()
-    elif edit_list == 9:
+    elif edit_list == 'x':
         print_menu()
-    else:
-        int(edit_list)
     
 
-    actual_row = edit_list
+    actual_row = int(edit_list)
     
-    if actual_row != rownum:
+    if actual_row != rownum:    
         print('You are trying to edit another record')
         print_menu()
+
 
     edit_menu = {
         1: 'Company name',
@@ -222,11 +232,11 @@ def remove_contact():
     Use search function based on Company name. Retrieves row number 
     and ask for wich index user wish to delete.
     """
-    search_for = input('Search for Company name: \n')
 
+    search_for = str(input('Search for Company name: \n'))
     if search_for == "":
         print('Please give input')
-        remove_contact()
+        edit_contact()
 
     sheet1 = SHEET.worksheet('sheet1')
     data = sheet1.get_all_values()
@@ -236,19 +246,38 @@ def remove_contact():
             company_col = sheet1.col_values(1)
             rownum = company_col.index(search_for) + 1
             row = sheet1.row_values(rownum)
-            print(rownum, row)
+            print(rownum, row) 
 
-        
-    delete_list = input('Enter index on record you want to delete or 9 to go back to Main menu: \n')
-    actual_row = int(delete_list)
+    search_result = input('Do you wanna [s] search again or [c] continue or [x]exit? s/c/x: ')
 
-    if actual_row == rownum:
+    if search_result == 's':
+        remove_contact()
+    elif search_result == 'x':
+        print_menu()
+    
+
+    edit_list = input('Enter index on record you want to remove or [x] to exit to main menu: \n')
+    
+    if edit_list == "":
+        print('Please give input')
+        remove_contact()
+    elif edit_list == 'x':
+        print_menu()
+    
+
+    actual_row = int(edit_list)
+    
+    if actual_row != rownum:    
+        print('You are trying to edit another record')
+        print_menu()
+    elif actual_row == rownum:
         sheet1.delete_rows(actual_row)
         print("Contact removed successfully")
     elif actual_row == 9:
         print_menu()
     else:
         print('You are trying to remove another record')
+     
 
 """
 Run program
