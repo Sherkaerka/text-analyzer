@@ -1,5 +1,4 @@
 import gspread
-import re
 from google.oauth2.service_account import Credentials
 from tabulate import tabulate
 
