@@ -39,7 +39,7 @@ def print_menu():
             print_menu_options()
             option = ''
             try:
-                option = int(input('What do you want to do: '))
+                option = int(input('What do you want to do: \n'))
             except:
                 print('Invalid input. Please enter a number.')
             
@@ -66,11 +66,11 @@ def add_contact():
     """
     print('Add new customer record')
     
-    company = input('Enter Company Name: ')
-    fname = input('Enter First name of contact: ')
-    lname = input('Enter Last name of contact: ')
-    email = input('Enter e-mail: ')
-    phone = input('Enter phone number: ')
+    company = input('Enter Company Name: \n')
+    fname = input('Enter First name of contact: \n')
+    lname = input('Enter Last name of contact: \n')
+    email = input('Enter e-mail: \n')
+    phone = input('Enter phone number: \n')
     sheet1 = SHEET.worksheet('sheet1')
     sheet1.append_row([company, fname, lname, email, phone])
     print( "New Customer record added successfully!")
@@ -104,7 +104,7 @@ def search_contact():
             print(tabulate([list], headers= ["Company","First name","Last name", "Email", "Phone"]))
 
 
-    search_result = input('Do you wanna search again? y/n: ')
+    search_result = input('Do you wanna search again? y/n: \n')
 
     if search_result == 'y':
         search_contact()
@@ -136,7 +136,7 @@ def edit_contact():
             row = sheet1.row_values(rownum)
             print(rownum, row) 
 
-    search_result = input('Do you wanna [s] search again or [c] continue or [x]exit? s/c/x: ')
+    search_result = input('Do you wanna [s] search again or [c] continue or [x]exit? s/c/x: \n')
 
     if search_result == 's':
         edit_contact()
@@ -179,40 +179,40 @@ def edit_contact():
             print_edit_menu()
             option = ''
             try:
-                option = int(input('What do you want to edit: '))
+                option = int(input('What do you want to edit: \n'))
             except:
                 print('Invalid input. Please enter a number.')
             
             if option == 1:
-                new_input = input('Please enter new input: ')
+                new_input = input('Please enter new input: \n')
                 col = 'A'
                 cell = col + str(actual_row)
                 sheet1.update(cell, new_input)
                 print('Company record updated successfully')
                 print_menu()
             elif option == 2:
-                new_input = input('Please enter new input: ')
+                new_input = input('Please enter new input: \n')
                 col = 'B'
                 cell = col + str(actual_row)
                 sheet1.update(cell, new_input)
                 print('First name record updated successfully')
                 print_menu()
             elif option == 3:
-                new_input = input('Please enter new input: ')
+                new_input = input('Please enter new input: \n')
                 col = 'C'
                 cell = col + str(actual_row)
                 sheet1.update(cell, new_input)
                 print('Last name record updated successfully')
                 print_menu()
             elif option == 4:
-                new_input = input('Please enter new input: ')
+                new_input = input('Please enter new input: \n')
                 col = 'D'
                 cell = col + str(actual_row)
                 sheet1.update(cell, new_input)
                 print('Email record updated successfully')
                 print_menu()
             elif option == 5:
-                new_input = input('Please enter new input: ')
+                new_input = input('Please enter new input: \n')
                 col = 'E'
                 cell = col + str(actual_row)
                 sheet1.update(cell, new_input)
@@ -247,7 +247,7 @@ def remove_contact():
             row = sheet1.row_values(rownum)
             print(rownum, row) 
 
-    search_result = input('Do you wanna [s] search again or [c] continue or [x]exit? s/c/x: ')
+    search_result = input('Do you wanna [s] search again or [c] continue or [x]exit? s/c/x: \n')
 
     if search_result == 's':
         remove_contact()
