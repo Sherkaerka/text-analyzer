@@ -24,6 +24,7 @@ Live site can be visited at: [Text Analyzer CRM -site](https://text-analyzer-crm
     * [Edit contact](#edit-contact-a-nameeditcontacta)
     * [Remove contact](#remove-contact-a-nameremovecontacta)
     * [Exit](#exit-a-nameexita)
+    * [Google sheets](#google-sheets-a-namegooglesheetsa)
     * [Future Features](#future-features-a-namefuturefeaturesa)
 * [Technologies Used](#technologies-used-a-nametechuseda)
 * [Python packages](#python-packages-a-namepythonpackagesa)
@@ -119,6 +120,14 @@ With input 6 program shuts down with a thank you message.
 [Back to top](#table-of-contents)
 <br>
 
+### Google sheets <a name="googlesheets"></a>
+Spreadsheet via Google sheets.
+<br>
+![Google sheets](./assets/readme-images/googlesheets.PNG)
+<br>
+[Back to top](#table-of-contents)
+<br>
+
 ### Future Features <a name="futurefeatures"></a>
 Some possible improvements but not limited to:
 
@@ -147,7 +156,60 @@ Some possible improvements but not limited to:
 
 ## Testing <a name="testing"></a>
 
-Please refer
+### Code validation
+For pep8 validation Code Institute validator was used: https://pep8ci.herokuapp.com/.
+
+**Please note** The two bare except are in this case accepted.
+
+![Python linter](./assets/readme-images/pythonlinter.PNG)
+
+### Manual testing
+
+#### Main menu
+- Testing for valid input 1-6
+- Testing invalid input and feedback to user
+
+#### Add contact
+- Test that it accepts all inputs
+- Verify successmessage to user
+- Verify sheet update
+
+#### Search contact
+- Validate inputs at each stage
+- Validate message to user
+- Test that user can search again or go back to menu
+- Validate tabulate format
+
+#### Edit contact
+- Validate inputs at each stage
+- Validate message to user
+- Test that user can search again or go back to menu
+- Test each cell update
+- Validate sheet update
+
+#### Remove contact
+- Validate inputs at each stage
+- Validate message to user
+- Test that user can search again or go back to menu
+- Validate index function
+- Validate sheet updated
+
+#### Exit
+- Validate that program gives thank you message
+- Validate program shut down
+
+
+### Bugs fixed
+Took some time to study results from validation and understand each of them.
+
+- Added extra row before new function
+- Removing several trailing whitespaces
+- Fixed too long rows with \
+
+### Bugs unresolved
+As this is a training project a more consistent way of validating input would have been choosen if I was to rebuild. As mentioned above when validating the "bare except" is an example of how I choose to validate my main menu and edit menu.
+
+!['Bare' example](./assets/readme-images/bareexcept.PNG)
 
 [Back to top](#table-of-contents)
 
